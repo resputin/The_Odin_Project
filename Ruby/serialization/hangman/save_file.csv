@@ -1,0 +1,3 @@
+save_file,secret_word,correct_array,incorrect_array,guessed_letters,guess_counter
+1,"disquieted
+","["" _ "", ""i"", ""s"", "" _ "", ""u"", ""i"", ""e"", ""t"", ""e"", "" _ ""]","[""a"", ""o"", ""r""]","[""a"", ""e"", ""i"", ""o"", ""u"", ""r"", ""s"", ""t""]",3
