@@ -61,15 +61,34 @@ class BinaryTree
 		end		
 	end
 
-	def dfs(value, root)
+	def dfs(value)
+		if @root_node.value == value
+			return @root_node
+		end
+		pos = @root_node
+		discovery = []
+		discovery << pos
+		until discovery.nil?
+			unless pos.l_child.nil? then discovery << pos.l_child end
+			if pos.l_child.nil? && !pos.r_child.nil? then discovery << pos.r_child end
+			check_node = discovery.pop
+			check_value = check_node.value
+			if check_value == value
+				return check_node
+			end
+			pos = check_node
+		end
+	end
+
+	def dfs_rec(value, root)
 		if root.nil?
 			return
 		end
 		if root.value == value
 			return root
 		end
-		left = dfs(value, root.l_child)
-		right = dfs(value, root.r_child)
+		left = dfs_rec(value, root.l_child)
+		right = dfs_rec(value, root.r_child)
 		left or right
 	end
 end
@@ -79,4 +98,5 @@ node_array = array_to_n([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 bt = BinaryTree.new
 bt.build_tree(node_array)
 puts bt.bfs(9)
-puts bt.dfs(9, bt.root_node)
+puts bt.dfs_rec(9, bt.root_node)
+puts bt.dfs(9)
