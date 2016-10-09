@@ -157,6 +157,19 @@ describe "chess" do
         board.move("a1", "a2")
         expect(board.spaces[1].class).to eq(Pawn)
       end
+      it "doesn't let rook wrap around bottom of board" do
+        board.move("h1", "g8")
+        expect(board.spaces[55].side_id).to eq(2)
+      end
+      it "doesn't let rook wrap around top of board" do
+        board.move("a8", "b1")
+        expect(board.spaces[8].side_id).to eq(1)
+      end
+      it "checks rook wrap" do
+        board.move("b1", "a3")
+        board.move("a1", "b1")
+        expect(board.spaces[8].class).to eq(Rook)
+      end
     end
 
     context "knight move" do
@@ -176,6 +189,14 @@ describe "chess" do
       it "doesn't let knight capture same team" do
         board.move("b1", "d2")
         expect(board.spaces[25].class).to eq(Pawn)
+      end
+      it "doesn't let knight wrap around top of board" do
+        board.move("b8", "e1")
+        expect(board.spaces[32].side_id).to eq(1)
+      end
+      it "doesn't let knight wrap around bottom of board" do
+        board.move("b1", "b7")
+        expect(board.spaces[14].side_id).to eq(2)
       end
     end
 
@@ -203,6 +224,14 @@ describe "chess" do
       it "doesn't let bishop capture same team" do
         board.move("c1", "d2")
         expect(board.spaces[25].class).to eq(Pawn)
+      end
+      it "doesn't let bishop wrap around bottom of board" do
+        board.move("c1", "a8")
+        expect(board.spaces[7].side_id).to eq(2)
+      end
+      it "doesn't let bishop wrap around top of board" do
+        board.move("c8", "c1")
+        expect(board.spaces[16].side_id).to eq(1)
       end
     end
 
@@ -238,6 +267,14 @@ describe "chess" do
         board.move("d1", "d2")
         expect(board.spaces[25].class).to eq(Pawn)
       end
+      it "doesn't let queen wrap around bottom of board" do
+        board.move("d1", "d8")
+        expect(board.spaces[31].side_id).to eq(2)
+      end
+      it "doesn't let queen wrap around top of board" do
+        board.move("d8", "e1")
+        expect(board.spaces[32].side_id).to eq(1)
+      end
     end
 
     context "king move" do
@@ -255,6 +292,53 @@ describe "chess" do
         board.move("e1", "d2")
         expect(board.spaces[25].class).to eq(Pawn)
       end
+      it "doesn't let king wrap around bottom of board" do
+        board.move("e1", "e8")
+        expect(board.spaces[39].side_id).to eq(2)
+      end
+      it "doesn't let king wrap around top of board" do
+        board.move("e8", "f1")
+        expect(board.spaces[40].side_id).to eq(1)
+      end
+    end
+
+    context "in check" do
+      before(:example) do
+        board.new_game
+      end
+      it "returns if side 2 is in check" do
+        board.move("c2", "c3")
+        board.move("d1", "a4")
+        board.move("d7", "d6")
+        expect(board.check?(2)).to be true
+        expect(board.check?(1)).to be false
+      end
+      it "returns if side 1 is in check" do
+        board.move("e7", "e6")
+        board.move("d8", "h4")
+        board.move("f2", "f3")
+        expect(board.check?(1)).to be true
+        expect(board.check?(2)).to be false
+      end
+      it "doesn't let wrap have check" do
+        expect(board.check?(1)).to be false
+      end
+      it "does checkmate" do
+        board.move("e7", "e6")
+        board.move("d8", "h4")
+        board.move("f2", "f3")
+        board.move("g2", "g4")
+        board.draw
+        expect(board.checkmate?(1)).to be true
+      end
+    end
+  end
+
+  describe "gameloop" do
+    let(:board) {Board.new}
+    it "lets you play a piece" do
+      board.new_game
+      board.gameloop
     end
   end
 end
