@@ -1,6 +1,17 @@
 <html>
-  <head></head>
+  <head>
+    <style>
+      body {
+        background: <%= background_color %>;
+      }
+    </style>
+  </head>
   <body>
+    <p>
+    <% if cheat %>
+      <%= "The secret number is #{number}" %>
+    <% end %>
+    </p>
     <p>
       <%= message %>
     </p>
