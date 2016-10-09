@@ -1,2 +1,2 @@
-require './caesar'
+require 'caesar/sinatra'
 run Sinatra::Application
