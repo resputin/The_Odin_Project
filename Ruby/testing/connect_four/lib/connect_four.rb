@@ -115,5 +115,5 @@ class Board
   end
 end
 
-#a = Board.new
-#a.new_game
+a = Board.new
+a.new_game

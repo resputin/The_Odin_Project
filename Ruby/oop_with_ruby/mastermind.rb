@@ -1,5 +1,13 @@
 class Game
 	def gameloop(player1_class = ComputerPlayer, player2_class = HumanPlayer)
+		puts "Would you like to guess or create?"
+		play = gets.chomp.downcase
+		if play == "create"
+			player1_class, player2_class = ComputerPlayer, HumanPlayer
+		else
+			player1_class, player2_class = HumanPlayer, ComputerPlayer
+		end
+
 		if player2_class == ComputerPlayer
 			secret_code = ComputerPlayer.new.generate_secret_code
 		else
@@ -133,8 +141,6 @@ class ComputerPlayer
 		guess		
 	end
 end
-
-
 
 a = Game.new
 a.gameloop
