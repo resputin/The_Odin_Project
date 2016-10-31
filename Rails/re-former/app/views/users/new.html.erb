@@ -1,0 +1,36 @@
+<!--
+<form action="/users" method="post">
+  <input type="text" name="user[username]">
+  <input type="text" name="user[email]">
+  <input type="password" name="user[password]">
+  <input type="submit" name="submit">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+</form>
+-->
+<!--
+<%= form_tag("/users", method: "post") do %>
+  <%= text_field_tag(:username) %>
+  <%= text_field_tag(:email) %>
+  <%= password_field_tag(:password) %>
+  <%= submit_tag %>
+<% end %>
+-->
+
+<%= form_for @user do |f| %>
+  User Name: <%= f.text_field :username %> <br>
+  Email:     <%= f.email_field :email %> <br>
+  Password:  <%= f.password_field :password %> <br>
+  <%= f.submit "Submit" %>
+  
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>
