@@ -1,0 +1,9 @@
+<%= render 'shared/header' %>
+
+<%= form_for([@user, @event]) do |f| %>
+  <%= f.label :location %>
+  <%= f.text_field :location %>
+
+  <%= f.submit %>
+
+<% end %>
