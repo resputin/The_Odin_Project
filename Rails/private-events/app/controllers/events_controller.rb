@@ -21,14 +21,18 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
   end
 
   def index
+    @events = Event.all
+    @upcoming_events = Event.upcoming
+    @past_events = Event.past
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:location)
+    params.require(:event).permit(:location, :title, :description, :date)
   end
 end

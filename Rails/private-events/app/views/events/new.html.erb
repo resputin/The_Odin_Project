@@ -1,8 +1,17 @@
 <%= render 'shared/header' %>
 
 <%= form_for([@user, @event]) do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
   <%= f.label :location %>
   <%= f.text_field :location %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :date %>
+  <%= f.date_field :date %>
 
   <%= f.submit %>
 

@@ -1,11 +1,11 @@
-<%= render 'shared/header' %>
 <h1>Upcoming Events</h1>
 <% @upcoming_events.each do |event| %>
   <%= event.title %>
   <%= event.date %>
 <% end %>
-<h1>Past Events</h1>
-<% @previous_events.each do |event| %>
-  <%= event.id %>
+
+<H1>Past Events</H1>
+<% @past_events.each do |event| %>
+  <%= event.title %>
   <%= event.date %>
 <% end %>
