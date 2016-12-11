@@ -1,0 +1,33 @@
+<%= form_for(@flight, url: flights_path, method: 'get') do |f| %>
+  <%= f.label :origin %>
+  <%= f.select(:origin_id, @airport_options) %>
+
+  <%= f.label :destination %>
+  <%= f.select(:destination_id, @airport_options) %>
+
+  <%= f.label :date %>
+  <%= f.select :takeoff_date, options_from_collection_for_select(Flight.get_takeoff_dates, 'takeoff_date', :takeoff_date_formatted) %>
+
+  <%= f.label :passengers %>
+  <%= f.select :passengers, 1..4 %>
+  
+
+  <%= f.submit "Search Flights" %>
+<% end %>
+
+
+<div>
+<% if @flights != nil %>
+  <% @flights.each do |flight| %>
+  <div>
+    <%= form_tag(new_booking_path, method: 'get') do  %>
+      <%= radio_button_tag(:flight_id, flight.id) %>
+      <%= flight.takeoff %>
+      <%= flight.duration %>
+      <%= hidden_field_tag(:passengers, @passengers) %>
+      <%= submit_tag "Choose this flight" %>
+    <% end %>
+  </div>
+  <% end %>
+<% end %>
+</div>
