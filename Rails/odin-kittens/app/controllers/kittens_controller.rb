@@ -20,6 +20,24 @@ class KittensController < ApplicationController
   def show
     @kitten = Kitten.find_by(params[:id])
   end
+
+  def edit
+    @kitten = Kitten.find_by(params[:id])
+  end
+
+  def update
+    @kitten = Kitten.find_by(params[:id])
+
+    if @kitten.update_attributes(kitten_params)
+      redirect_to kitten_path
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    Kitten.find_by(params[:id]).destroy
+  end
   
 
   private
