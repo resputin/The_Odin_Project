@@ -14,6 +14,7 @@ class BookingsController < ApplicationController
                              email: passenger_params[passenger_index][:email])
     end
     if @booking.save
+      PassengerMailer.thank_you_email(passenger_params['0']).deliver_now
       redirect_to @booking
     else
       debugger
