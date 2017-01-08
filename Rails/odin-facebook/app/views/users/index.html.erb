@@ -1,1 +1,8 @@
 <%= render 'devise/navbar' %>
+
+<% @users.each do |user| %>
+  <div>
+    <%= link_to user.name, user %>
+    <%= link_to "Send a Friend Request", user %>
+  </div>
+<% end %>
