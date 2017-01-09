@@ -9,11 +9,21 @@ RSpec.describe FriendRequest, type: :model do
       expect(FriendRequest.count).to eq(1)
     end
 
-    it 'only allows one friend request per relationship' do
+    # it 'only allows one friend request per relationship' do
+    #   u1 = create(:user, email: Faker::Internet.unique.email)
+    #   u2 = create(:user, email: Faker::Internet.unique.email)
+    #   FriendRequest.create(sender_id: u1.id, receiver_id: u2.id)
+    #   FriendRequest.create(sender_id: u2.id, receiver_id: u1.id)
+    #   expect(FriendRequest.count).to eq(1)
+    # end
+  end
+
+  describe 'accepting a friend request' do
+    it 'creates a user relationship' do
       u1 = create(:user, email: Faker::Internet.unique.email)
       u2 = create(:user, email: Faker::Internet.unique.email)
       FriendRequest.create(sender_id: u1.id, receiver_id: u2.id)
-      FriendRequest.create(sender_id: u2.id, receiver_id: u1.id)
+      FriendRequest.first.update(acceptance: 1)
       expect(FriendRequest.count).to eq(1)
     end
   end
