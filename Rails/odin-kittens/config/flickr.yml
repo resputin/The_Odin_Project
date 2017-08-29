@@ -1,0 +1,5 @@
+# config/flickr.yml
+
+FlickRaw.api_key: "264f040e3cca93b811dab5e7034f76d4"
+secret: "9f233b0ad5feef54"
+token_cache: "token_cache.yml"
